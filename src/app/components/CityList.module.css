@@ -1,0 +1,18 @@
+.grid_container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 5px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: aqua;
+}
+
+.grid_container > div {
+    background-color: bisque;
+    padding: 20px
+}
+
+.grid_item {
+  /* background-color: white; */
+}
