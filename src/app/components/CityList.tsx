@@ -3,18 +3,19 @@
 import { City } from "@/types/city";
 import { useQuery } from "@tanstack/react-query";
 import CityCard from "./CityCard";
-import styles from "./CityList.module.css";
+import styles from "./styles/CityList.module.css";
 import axios from "axios";
-import { useState } from "react";
 
 export default function CityList() {
-//   const [cities, setCities] = useState([]);
-  const { data: cities } = useQuery(["cities", "all"], async () => {
-    return await axios
-      .get(`/data/haha.json`) //
-      .then((res) => res.data)
-    //   .then((res) => setCities(res));
-  });
+  const { data: cities } = useQuery(
+    ["cities", "all"],
+    async () => {
+      return await axios
+        .get(`/data/haha.json`) //
+        .then((res) => res.data);
+    },
+    { cacheTime: 1000 * 60 * 10 }
+  );
 
   return (
     <div>
