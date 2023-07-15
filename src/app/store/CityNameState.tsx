@@ -3,8 +3,8 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
 
-export const CityNameState = atom({
-  key: "CityName",
+export const CityListState = atom({
+  key: "CityList",
   default: [],
   effects_UNSTABLE: [persistAtom],
 });

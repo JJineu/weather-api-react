@@ -1,24 +1,23 @@
 "use client";
 
 import SearchHistory from "./SearchHistory";
-import { FormEvent, useEffect, useRef, useState } from "react";
-import useDebounce from "@/hooks/debounce";
-import { useGetCitesQuery } from "@/hooks/city";
-import { useSetRecoilState } from "recoil";
-import { KeywordListState } from "../recoil/KeywordListState";
+import { FormEvent, useRef, useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { KeywordListState } from "../store/KeywordListState";
 import { City } from "@/types/city";
 import { useRouter } from "next/navigation";
 import SearchButton from "./icons/SearchButton";
 import styles from "./styles/SearchHeader.module.css";
 import Link from "next/link";
+import { getCitiesFor, getCity } from "@/service/city";
+import useDebounce from "@/hooks/debounce";
+import SearchRecommand from "./SearchRecommand";
 
 export default function SearchHeader() {
   const [keyword, setKeyword] = useState("");
-  const debouncedKeyword = useDebounce(keyword, 100);
+  const debouncedKeyword = useDebounce(keyword, 1000);
   const setKeywordList = useSetRecoilState(KeywordListState);
-  const [isShow, setIsShow] = useState(false);
-  const { data: cities, isLoading } = useGetCitesQuery();
-  const [isActiveHistory, activeHistory] = useState(false);
+  const [activeHistory, setActiveHistory] = useState(false);
   const inputRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -36,46 +35,51 @@ export default function SearchHeader() {
   // }, []);
   // console.log('Gorkh ā  '.replace(/(\s*)/g, "").toLowerCase())
 
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (keyword.length === 0) return;
-    setKeyword(keyword.replace(/(\s*)/g, ""));
-    const resultCity = cities?.find(
-      (city: City) =>
-        encodeURIComponent(city.name.toLowerCase()) ===
-        encodeURIComponent(keyword.replace(/(\s*)/g, "").toLowerCase())
-    );
-    if (!resultCity) {
-      setKeyword("");
-      return alert("도시 이름을 찾을 수 없습니다.");
-    }
-    handleAddKeyword(keyword);
-    router.push(`/${keyword}`);
-    setKeyword("");
+  // const handleBlur = (e: React.FocusEvent<HTMLElement>) => {
+  //   if (inputRef.current?.contains(e.relatedTarget)) return;
+  //   setActiveHistory(false);
+  // };
+
+  const onTyping = (e: string) => {
+    setKeyword(e);
+    setActiveHistory(false);
   };
 
   const onFocus = () => {
-    activeHistory(true);
+    if (keyword.length === 0) setActiveHistory(true);
   };
   const onBlur = () => {
-    setTimeout(() => {
-      activeHistory(false);
-    }, 500);
+    setActiveHistory(false);
+    // setTimeout(() => {}, 500);
   };
 
-  const handleAddKeyword = (keyword) => {
-    setKeywordList((old) => [
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (keyword.length === 0) return;
+    const city: City | undefined = await getCity(keyword);
+    console.log(city);
+    if (!city) {
+      setKeyword("");
+      return alert("도시 이름을 찾을 수 없습니다.");
+    }
+
+    handleAddKeyword(city.name);
+    router.push(`/${city.name}`);
+    setKeyword("");
+  };
+
+  const handleAddKeyword = (keyword: string) => {
+    setKeywordList((old: string[]) => [
       keyword,
       ...old.filter((item) => item !== keyword),
     ]);
   };
 
-  if (isLoading) return <div className={styles.header}></div>;
-
-  const handleBlur = (e: React.FocusEvent<HTMLElement>) => {
-    if (inputRef.current?.contains(e.relatedTarget)) return;
-    activeHistory(false);
-  };
+  // const recommandCities = async (): Promise<City[] | []> =>
+  //   await getCitiesFor(debouncedKeyword);
+  // if (recommandCities.length === 0) return <div>loading</div>;
+  // if (isLoading) return <div className={styles.header}></div>;
 
   return (
     <div className={styles.header}>
@@ -88,17 +92,17 @@ export default function SearchHeader() {
             className={styles.input}
             type="text"
             placeholder="도시 이름을 입력해주세요"
-            // onFocus={() => activeHistory(true)}
             onFocus={onFocus}
             onBlur={onBlur}
             value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
+            onChange={(e) => onTyping(e.target.value)}
           />
           <SearchButton onClick={onSubmit} />
         </form>
       </div>
+      <div className={styles.history}>{activeHistory && <SearchHistory />}</div>
       <div className={styles.history}>
-        {isActiveHistory && <SearchHistory />}
+        {/* {recommandCities && <SearchRecommand />} */}
       </div>
     </div>
   );
