@@ -1,0 +1,17 @@
+.container {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 300px auto;
+}
+
+.title {
+  font-size: x-large;
+  margin-bottom: 20px;
+}
+
+.text {
+  font-size: medium;
+  color: gray;
+  margin: 3px;
+}

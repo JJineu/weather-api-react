@@ -12,7 +12,7 @@ export const useGetCitesQuery = () => {
     ["cities", "all"],
     () => {
       return axios
-        .get(`/data/haha.json`) //
+        .get(`/data/citylist.json`) //
         .then(({ data }) => data);
     },
     { cacheTime: 1000 * 60 * 10 }
