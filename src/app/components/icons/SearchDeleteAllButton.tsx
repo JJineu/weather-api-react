@@ -1,6 +1,10 @@
 import { AiFillDelete } from "react-icons/ai";
 
-export default function SearchDeleteAllButton({ onClick }) {
+export default function SearchDeleteAllButton({
+  onClick,
+}: {
+  onClick: () => void;
+}) {
   return (
     <AiFillDelete
       className="icon"

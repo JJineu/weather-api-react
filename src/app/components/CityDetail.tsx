@@ -1,6 +1,6 @@
 "use client";
 
-import { City, SimpleWeather } from "@/types/city";
+import { City } from "@/types/city";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import styles from "./styles/CityDetail.module.css";
@@ -14,16 +14,15 @@ export default function CityDetail({ city }: Props) {
     async () => {
       return await axios
         .get(
-          `http://localhost:3000/data/weather.json`
-          //   `https://api.openweathermap.org/data/3.0/onecall?lat=${city.coord.lat}&lon=${city.coord.lon}&appid=${process.env.OPENWEATHER_SECRET}&units=metric`
+          // `http://localhost:3000/data/weather.json`
+          `https://api.openweathermap.org/data/3.0/onecall?lat=${city.coord.lat}&lon=${city.coord.lon}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_SECRET}&units=metric`
         )
         .then(({ data }) => data)
-        // .then((data) => data.current.weather[0]);
         .then((data) => data.current);
     }
   );
 
-  if (isLoading) return <div> 로딩중</div>;
+  if (isLoading) return <></>;
   const { icon, main, description } = weather.weather[0];
   const { temp, humidity, wind_speed } = weather;
 

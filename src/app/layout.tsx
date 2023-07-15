@@ -12,8 +12,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Check world weather",
-  description: "",
+  title: {
+    default: "Weather",
+    template: "Weather | %s",
+  },
+  description: "Check the weather your city",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

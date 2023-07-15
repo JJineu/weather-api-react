@@ -1,6 +1,10 @@
 import { LuDelete } from "react-icons/lu";
 
-export default function SearchDeleteButton({ onClick }) {
+export default function SearchDeleteButton({
+  onClick,
+}: {
+  onClick: () => void;
+}) {
   return (
     <LuDelete
       className="icon"
