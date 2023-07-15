@@ -1,13 +1,24 @@
+"use client";
+
 import { City } from "@/types/city";
+import { useQuery } from "@tanstack/react-query";
 import styles from "./styles/CityList.module.css";
+import axios from "axios";
 import Link from "next/link";
 
-type Props = {
-  cities: City[];
-};
-export default function CityList({ cities }: Props) {
+export default function CityList() {
+  const { data: cities } = useQuery(
+    ["cities", "all"],
+    async () => {
+      return await axios
+        .get(`/data/citylist.json`) //
+        .then((res) => res.data);
+    },
+    { cacheTime: 1000 * 60 * 10 }
+  );
+
   return (
-    <div className={styles.container}>
+    <div>
       <div className={styles.grid_container}>
         {cities &&
           cities.map((city: City) => (

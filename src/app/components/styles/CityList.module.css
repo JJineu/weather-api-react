@@ -1,0 +1,49 @@
+.container {
+  width: 100%;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+.grid_container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 20px;
+  box-sizing: border-box;
+  padding: 0 20px;
+}
+
+.grid_item {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid_container a {
+  padding-top: 20px;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  font-size: xx-large;
+  height: 250px;
+  width: 100%;
+  background-color: #e9e9e9;
+}
+
+.grid_item:hover {
+  background-color: #cecece;
+}
+
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+  .grid_container {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .grid_container {
+    display: grid;
+    grid-template-columns: auto;
+  }
+}

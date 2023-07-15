@@ -1,21 +1,42 @@
 "use client";
-import CityCard from "./CityCard";
 
-type Keword = {
-  id: string;
-  text: string;
-};
+import { useRecoilState } from "recoil";
+import { KeywordListState } from "../recoil/KeywordListState";
+import Link from "next/link";
+import styles from "./styles/SearchHistory.module.css";
+import SearchDeleteButton from "./icons/SearchDeleteButton";
+import SearchDeleteAllButton from "./icons/SearchDeleteAllButton";
+
 export default function SearchHistory() {
-//   const keyword;
-//   const handleSearchKeyword;
+  const [keywordList, setKeywordList] = useRecoilState(KeywordListState);
+
+  const handleRemove = (idx: number) => {
+    setKeywordList((pre) => [...pre.slice(0, idx), ...pre.slice(idx + 1)]);
+  };
+  const handleRemoveAll = () => {
+    setKeywordList([]);
+  };
+
   return (
-    <div>
-      <title>최근 검색어</title>
-      {/* {keyword.length === 0 ? {"최근 검색한 기록이 없습니다"} :''}
-      {keyword.map({id, text} =>
-        // <CityCard city={text}/>
-        <button onClick={handleSearchKeyword}>삭제</button>
-        )} */}
+    <div className={styles.container}>
+      {keywordList.length === 0 ? (
+        <p className={styles.title}>최근 검색한 기록이 없습니다</p>
+      ) : (
+        <>
+          <div className={styles.title}>
+            <p>최근 검색어</p>
+            <SearchDeleteAllButton onClick={handleRemoveAll} />
+          </div>
+          <div className={styles.keywords}>
+            {keywordList.map((keyword, idx) => (
+              <div className={styles.keyword} key={idx}>
+                <Link href={`/${keyword}`}>{keyword}</Link>
+                <SearchDeleteButton onClick={() => handleRemove(idx)} />
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

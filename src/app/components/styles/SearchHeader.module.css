@@ -1,0 +1,64 @@
+.header {
+  position: sticky;
+  top: 0;
+  padding: 12px;
+  width: 100vw;
+  background-color: #f5f8ff;
+  height: 60px;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  padding: 12px;
+  width: 100vw;
+  background-color: #f5f8ff;
+  height: 60px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  place-items: center;
+}
+
+.title {
+  justify-self: start;
+  padding-left: 10px;
+  font-size: large;
+  font-weight: 800;
+}
+
+.title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.form {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  gap: 2px;
+  position: relative;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input {
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+  border: 1px solid #bbb;
+  padding: 12px 20px;
+}
+
+.history {
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  /* width: 50vw; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}

@@ -1,0 +1,29 @@
+.container {
+  background-color: #f5f8ff;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  margin: 10px 0;
+  padding: 20px;
+}
+
+.title {
+  font-size: large;
+  align-items: center;
+}
+
+.fix {
+  font-size: medium;
+  color: #595959;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  font-size: xx-large;
+  text-align: center;
+  align-items: center;
+}
+.weatherIcon {
+  width: 60%;
+}
