@@ -20,12 +20,3 @@ export default async function page({ params: { cityName } }: Props) {
     </div>
   );
 }
-
-// export async function generateMetadata({
-//   params: { cityName },
-// }: Props): Promise<Metadata> {
-//   return {
-//     title: `Weather : Result for ${cityName}`,
-//     description: `Weather information for ${cityName}`,
-//   };
-// }

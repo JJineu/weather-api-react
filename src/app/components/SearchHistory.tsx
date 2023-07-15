@@ -21,7 +21,7 @@ export default function SearchHistory() {
   };
 
   return (
-    <div className={styles.container} >
+    <div className={styles.container}>
       {keywordList.length === 0 ? (
         <p className={styles.title}>최근 검색한 기록이 없습니다</p>
       ) : (

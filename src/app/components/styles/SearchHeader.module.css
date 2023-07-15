@@ -55,10 +55,6 @@
 }
 
 .history {
-  /* position: relative; */
   display: flex;
   justify-content: center;
-  /* width: 50vw; */
-  /* align-items: center; */
-  /* justify-content: center; */
 }

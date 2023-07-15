@@ -14,8 +14,8 @@ export default function CityDetail({ city }: Props) {
     async () => {
       return await axios
         .get(
-          // `http://localhost:3000/data/weather.json`
-          `https://api.openweathermap.org/data/3.0/onecall?lat=${city.coord.lat}&lon=${city.coord.lon}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_SECRET}&units=metric`
+          `http://localhost:3000/data/weather.json`
+          // `https://api.openweathermap.org/data/3.0/onecall?lat=${city.coord.lat}&lon=${city.coord.lon}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_SECRET}&units=metric`
         )
         .then(({ data }) => data)
         .then((data) => data.current);
