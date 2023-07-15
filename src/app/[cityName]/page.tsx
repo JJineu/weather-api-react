@@ -1,6 +1,8 @@
 import CityDetail from "../components/CityDetail";
 import { notFound } from "next/navigation";
 import { getCity } from "@/service/city";
+import axios from "axios";
+import { City } from "@/types/city";
 
 type Props = {
   params: {
