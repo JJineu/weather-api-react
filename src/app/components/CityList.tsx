@@ -3,11 +3,21 @@
 import { City } from "@/types/city";
 import styles from "./styles/CityList.module.css";
 import Link from "next/link";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
-type Props = {
-  cities: City[];
-};
-export default function CityList({ cities }: Props) {
+export default function CityList() {
+  const { data: cities } = useQuery(
+    ["cityList"],
+    () => {
+      return axios
+        .get(`/data/citylist.json`) //
+        .then(({ data }) => data);
+    },
+    { cacheTime: 1000 * 60 * 10 }
+  );
+
+  if (!cities) return;
 
   return (
     <div className={styles.container}>
