@@ -23,11 +23,12 @@ export default function CityList() {
     <div className={styles.container}>
       <div className={styles.grid_container}>
         {cities &&
-          cities.map((city: City) => (
+          cities.map((city: City, index: number) => (
             <Link
               href={`/${city.name}`}
               className={styles.grid_item}
               key={city.id}
+              prefetch={index < 10 ? true : false}
             >
               {city.name}
             </Link>

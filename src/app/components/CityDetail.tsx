@@ -14,17 +14,18 @@ export default function CityDetail({ city }: Props) {
     async () => {
       return await axios
         .get(
-          `http://localhost:3000/data/weather.json`
-          // `https://api.openweathermap.org/data/3.0/onecall?lat=${city.coord.lat}&lon=${city.coord.lon}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_SECRET}&units=metric`
+          // `${process.env.NEXT_PUBLIC_LOCALHOST}/data/weather.json`
+          `https://api.openweathermap.org/data/3.0/onecall?lat=${city.coord.lat}&lon=${city.coord.lon}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_SECRET}&units=metric`
         )
         .then(({ data }) => data)
         .then((data) => data.current);
-    }
+    },
+    { cacheTime: 1000 * 60 * 10 }
   );
 
   if (isLoading) return <></>;
-  const { icon, main, description } = weather.weather[0];
-  const { temp, humidity, wind_speed } = weather;
+  const { icon, main } = weather.weather[0];
+  const { temp } = weather;
 
   return (
     <div className={styles.container}>
